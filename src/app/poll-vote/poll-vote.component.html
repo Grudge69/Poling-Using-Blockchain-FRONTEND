@@ -1,0 +1,28 @@
+<h3>{{ question }}</h3>
+
+<!-- If the user did NOT VOTE show the form -->
+<form *ngIf="!voted" [formGroup]="voteForm" (ngSubmit)="submitForm()">
+  <div class="form-check" *ngFor="let opt of options; let i = index">
+    <input
+      type="radio"
+      class="form-check-input"
+      formControlName="selected"
+      [value]="i"
+    />
+    <label class="form-check-label">{{ opt }}</label>
+  </div>
+
+  <!-- Button should be disabled if our form is not valid -->
+  <!-- Form is not valid when selected has not value i.e. no option is selected -->
+  <!-- Button is enabled as soon as we select a radio button(options) -->
+  <button
+    type="submit"
+    class="btn btn-secondary mt-3"
+    [disabled]="!voteForm.valid"
+  >
+    Submit Vote
+  </button>
+</form>
+
+<!-- If the user did VOTE show the results in the form of bar chart -->
+<div *ngIf="voted" id="poll-results"></div>
